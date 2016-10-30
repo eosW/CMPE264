@@ -33,6 +33,8 @@ class Calibration:
         self.g[0], self.b[0], _, _, _ = stats.linregress(lnx, vln(y[:, 0]))
         self.g[1], self.b[1], _, _, _ = stats.linregress(lnx, vln(y[:, 1]))
         self.g[2], self.b[2], _, _, _ = stats.linregress(lnx, vln(y[:, 2]))
+        cap = np.array([255**self.g[0], 255**self.g[1], 255**self.g[2]],np.float32)
+        self.scale = cap/min(cap)
         if not plot:
             return
         pyplot.xlabel('ln T(s)')
@@ -48,12 +50,20 @@ class Calibration:
         pyplot.xlabel('T(s)')
         pyplot.ylabel("B'^g")
         tb = np.zeros(y.shape)
-        tb[:, 0] = y[:, 0] ** self.g[0]
-        tb[:, 1] = y[:, 1] ** self.g[1]
-        tb[:, 2] = y[:, 2] ** self.g[2]
+        tb[:, 0] = y[:, 0] ** self.g[0]/self.scale[0]
+        tb[:, 1] = y[:, 1] ** self.g[1]/self.scale[1]
+        tb[:, 2] = y[:, 2] ** self.g[2]/self.scale[2]
         pyplot.plot(x, tb[:, 0], 'bo-')
         pyplot.plot(x, tb[:, 1], 'go-')
         pyplot.plot(x, tb[:, 2], 'ro-')
+        pyplot.show()
+        x = range(255)
+        y0 = x ** self.g[0]/self.scale[0]
+        y1 = x ** self.g[1]/self.scale[1]
+        y2 = x ** self.g[2]/self.scale[2]
+        pyplot.plot(x, y0, 'b-')
+        pyplot.plot(x, y1, 'g-')
+        pyplot.plot(x, y2, 'r-')
         pyplot.show()
 
     def get_true_b(self, colors):
@@ -62,5 +72,9 @@ class Calibration:
         :param ndarray, colors: input B of three colors in sequence of BGR, uint8
         :return: ndarray, linear B in BGR, float
         """
-        return np.array([colors[0]**self.g[0], colors[1]**self.g[1], colors[2]**self.g[2]], np.float32)
+        return np.array([colors[0]**self.g[0]/self.scale[0], colors[1]**self.g[1]/self.scale[1], colors[2]**self.g[2]/self.scale[2]], np.float32)
         pass
+
+if __name__ == "__main__":
+    c = Calibration(True)
+    print c.get_true_b([255,255,255])
