@@ -5,7 +5,7 @@ from Calibration import Calibration
 
 class ToneMapping:
     def __init__(self):
-        self.tome_mapper = cv2.createTonemap(gamma=1)
+        self.tome_mapper = cv2.createTonemapDurand(gamma=2.2)
 
     def map(self, img):
         return self.tome_mapper.process(img)
