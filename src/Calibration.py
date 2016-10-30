@@ -62,5 +62,5 @@ class Calibration:
         :param ndarray, colors: input B of three colors in sequence of BGR, uint8
         :return: ndarray, linear B in BGR, float
         """
-        return np.array([colors[0]**self.g[0], colors[1]**self.g[1], colors[2]**self.g[2]], np.float64)
+        return np.array([colors[0]**self.g[0], colors[1]**self.g[1], colors[2]**self.g[2]], np.float32)
         pass
