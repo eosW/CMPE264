@@ -28,7 +28,7 @@ class Calibration:
         ind = x.argsort()
         x = x[ind]
         y = y[ind, :]
-        vln = np.vectorize(lambda i: math.log(i, 10))
+        vln = np.vectorize(lambda i: math.log(i, math.e))
         lnx = vln(x)
         self.g[0], self.b[0], _, _, _ = stats.linregress(lnx, vln(y[:, 0]))
         self.g[1], self.b[1], _, _, _ = stats.linregress(lnx, vln(y[:, 1]))
@@ -48,7 +48,7 @@ class Calibration:
         pyplot.show()
         pyplot.cla()
         pyplot.xlabel('T(s)')
-        pyplot.ylabel("B'^g")
+        pyplot.ylabel("cB'^g")
         tb = np.zeros(y.shape)
         tb[:, 0] = y[:, 0] ** self.g[0]/self.scale[0]
         tb[:, 1] = y[:, 1] ** self.g[1]/self.scale[1]
@@ -57,6 +57,8 @@ class Calibration:
         pyplot.plot(x, tb[:, 1], 'go-')
         pyplot.plot(x, tb[:, 2], 'ro-')
         pyplot.show()
+        pyplot.xlabel('B')
+        pyplot.ylabel("cB'^g")
         x = range(255)
         y0 = x ** self.g[0]/self.scale[0]
         y1 = x ** self.g[1]/self.scale[1]
@@ -77,4 +79,6 @@ class Calibration:
 
 if __name__ == "__main__":
     c = Calibration(True)
+    print c.b
+    print c.g
     print c.get_true_b([255,255,255])
