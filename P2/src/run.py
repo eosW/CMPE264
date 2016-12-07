@@ -35,4 +35,4 @@ beta,gamma = rescale(r121.A,r231.A,r311.A)
 print beta,gamma
 r313 = gamma*r313
 
-plane_sweeping(img1,img2,img3,R12,R12,r212.A,r313.A,K)
+plane_sweeping(img1,img2,img3,R12,R13,r212.A,r313.A,K)
