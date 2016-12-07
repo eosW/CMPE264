@@ -26,9 +26,7 @@ R13,r131,r313 = recover(E13,K,inlier131,inlier133,img1,img3)
 print R13,r313
 R23,r232,r323 = recover(E23,K,inlier232,inlier233,img2,img3)
 print R23,r323
-R31 = -R13
-R32 = -R23
-r231 = -R12*r232+r212
+r231 = -R12*r232
 r311 = -r131
 
 beta,gamma = rescale(r121.A,r231.A,r311.A)
