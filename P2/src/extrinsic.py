@@ -64,7 +64,7 @@ def recover(E,K,inlierl,inlierr,imgl,imgr):
             print 'rmse:{:f}'.format(rmse)
             print 'depth:'
             print '\n'.join(['{:f},{:f}):{:f}'.format(t[0],t[1],t[2]) for t in np.hstack((inlierl,depth.T)).A])
-            return Rlr,rl,rr
+            return Rlr,rl*avgcoef,rr*avgcoef
 
     print 'no valid pair found'
 
