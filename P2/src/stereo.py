@@ -23,6 +23,9 @@ def plane_sweeping(img1, img2, img3, R12, R13, r21, r31, K):
     kernel = np.ones((delta * 2 + 1, delta * 2 + 1))/(delta*2+1)**2
     f = K[0, 0]
 
+    img2 -= 20
+    img3 -= 10
+
     minSAD12, minSAD13, minSAD123 = None, None, None
     depth12, depth13, depth123 = None, None, None
     for i in range(1, int(np.floor(f)), setplength):
