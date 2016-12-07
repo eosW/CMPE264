@@ -21,12 +21,6 @@ def recover(E,K,inlierl,inlierr,imgl,imgr):
 
     U,S,V = np.linalg.svd(E)
     V = V.T
-    rl1 = V[:,2]
-    rl2 = -rl1
-    rr1 = U[:,2]
-    rr2 = -rr1
-    R1 = U*W*V.T
-    R2 = U*W.T*V.T
     du,dv = np.linalg.det(U),np.linalg.det(V)
     print 'du,dv={:f},{:f}'.format(du,dv)
     if du+1<1e-9 and dv+1<1e-9:
@@ -35,12 +29,12 @@ def recover(E,K,inlierl,inlierr,imgl,imgr):
     elif du+1<1e-9 or dv+1<1e-9:
         U,S,V = np.linalg.svd(-E)
         V = V.T
-        rl1 = V[:,2]
-        rl2 = -rl1
-        rr1 = U[:,2]
-        rr2 = -rr1
-        R1 = -U*W*V.T
-        R2 = -U*W.T*V.T
+    rl1 = V[:,2]
+    rl2 = -rl1
+    rr1 = U[:,2]
+    rr2 = -rr1
+    R1 = U*W*V.T
+    R2 = U*W.T*V.T
 
     for Rlr,rl,rr in ((R2,rl2,rr2),(R2,rl1,rr1),(R1,rl2,rr2),(R1,rl1,rr1)):
         co = f*Rlr[0,:]-inlierrh[:,0][:,None]*f*Rlr[2,:]
