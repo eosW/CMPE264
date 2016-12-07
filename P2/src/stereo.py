@@ -3,7 +3,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 
-def plane_sweeping(img1, img2, img3, R12, R13, r12, r13, K):
+def plane_sweeping(img1, img2, img3, R12, R13, r21, r31, K):
     """
     :param img1: image, greyscale
     :param img2: image, greyscale
@@ -22,8 +22,6 @@ def plane_sweeping(img1, img2, img3, R12, R13, r12, r13, K):
     # derived values:
     kernel = np.ones((delta * 2 + 1, delta * 2 + 1))/(delta*2+1)**2
     f = K[0, 0]
-    r21 = -r12
-    r31 = -r13
 
     minSAD12, minSAD13, minSAD123 = None, None, None
     depth12, depth13, depth123 = None, None, None

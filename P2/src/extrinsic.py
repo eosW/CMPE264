@@ -61,6 +61,9 @@ def recover(E,K,inlierl,inlierr,imgl,imgr):
             plt.scatter(inlierlr[:,0],inlierlr[:,1],c='r',marker='x')
             plt.show()
             rmse = np.sqrt(2*np.mean(np.square(inlierlr-inlierr)))
+            if avgcoef<0:
+                rl = -rl
+                rr = -rr
             print 'rmse:{:f}'.format(rmse)
             print 'depth:'
             print '\n'.join(['{:f},{:f}):{:f}'.format(t[0],t[1],t[2]) for t in np.hstack((inlierl,depth.T)).A])
