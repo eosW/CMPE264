@@ -1,6 +1,5 @@
 import numpy as np
 from matplotlib import pyplot as plt
-import cv2
 
 def recover(E,K,inlierl,inlierr,imgl,imgr):
     """
@@ -36,6 +35,10 @@ def recover(E,K,inlierl,inlierr,imgl,imgr):
     elif du+1<1e-9 or dv+1<1e-9:
         U,S,V = np.linalg.svd(-E)
         V = V.T
+        rl1 = V[:,2]
+        rl2 = -rl1
+        rr1 = U[:,2]
+        rr2 = -rr1
         R1 = -U*W*V.T
         R2 = -U*W.T*V.T
 
