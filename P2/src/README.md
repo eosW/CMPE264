@@ -1,7 +1,8 @@
 --------------------
 How to execute:
 
-just run run.py, and close popups to continue till end all parameters are embedded in code.
+just run run.py, and close popups to continue till end.
+All parameters are embedded in code.
 The last step may takes some time
 
 --------------------
